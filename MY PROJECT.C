@@ -49,9 +49,9 @@ void viewExpenses(){
         return;
     }
     
-    printf("\nID\tCATEGORY\tAMOUNT\n");
+printf("\nID\tCATEGORY\tDESCRIPTION\tAMOUNT\n");
     for(int i=0; i<count; i++){
-        printf("%d\t%s\t%s\t%.2f\t\n",expenses[i].id,expenses[i].category,expenses[i].description,expenses[i].amount);
+        printf("%d\t%s\t\t%s\t\t%.2f\n",expenses[i].id,expenses[i].category,expenses[i].description,expenses[i].amount);
     }
     
 }
@@ -133,7 +133,40 @@ void searchof(){
         }
     }
     if(found==0){
-        printf("The Id is not existed plz enter valid id----");
+        printf("The Id is not existed plz enter valid id----\n");
+    }
+}
+// delete record 
+void deleteExpense()
+{
+    int id;
+    int found = 0;
+
+    printf("Enter Expense ID to delete: ");
+    scanf("%d", &id);
+
+    for(int i = 0; i < count; i++)
+    {
+        if(expenses[i].id == id)
+        {
+            found = 1;
+
+            // Shift all records one position left
+            for(int j = i; j < count - 1; j++)
+            {
+                expenses[j] = expenses[j + 1];
+            }
+
+            count--;
+
+            printf("Expense Deleted Successfully!\n");
+            break;
+        }
+    }
+
+    if(found == 0)
+    {
+        printf("Expense ID not found!\n");
     }
 }
 int main() {
@@ -149,9 +182,9 @@ int main() {
     printf("Enter the Monthly Income: ");
     scanf("%f",&income);
     
-    while(choice != 7){
+    while(1){
         printf("\t\t\t-----------------Daily Expenses-----------------\t\t\t\n");
-        printf("1.Add Expense\n2.View Expense\n3.Update Expenses\n4.Total Expenses\n5.Remaining Ammount\n6.Search Expenses\n7.Exit\n");
+        printf("1.Add Expense\n2.View Expense\n3.Update Expenses\n4.Total Expenses\n5.Remaining Ammount\n6.Search Expenses\n7.Delete Expenses\n8.Exit\n");
         
         printf("enter the choice:");
         scanf("%d",&choice);
@@ -180,6 +213,9 @@ int main() {
                 searchof();
                 break;
             case 7:
+                deleteExpense();
+                break;
+            case 8:
                 printf("Exit");
                 break;
             default:
