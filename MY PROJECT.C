@@ -1,227 +1,441 @@
 #include <stdio.h>
-#include<string.h>
-// here i declare structure
-struct Expense{
+#include <string.h>
+
+// Structure declaration
+struct Expense
+{
     int id;
     char category[50];
     char description[100];
     float amount;
 };
-struct Expense expenses[100];
-int count=0;
-float income=0;
 
-// add function
+struct Expense expenses[100];
+
+int count = 0;
+float income = 0;
+
+
+// Add Expense
 void addExpenses()
 {
     int howmuch;
 
-    printf("Enter how many entries u want to add: ");
+    printf("Enter how many entries you want to add: ");
     scanf("%d", &howmuch);
+
 
     for(int i = 0; i < howmuch; i++)
     {
+
+        if(count >= 100)
+        {
+            printf("Expense storage is full!\n");
+            return;
+        }
+
+
         printf("\nExpense %d\n", i + 1);
+
 
         printf("Enter Expense ID: ");
         scanf("%d", &expenses[count].id);
 
+
         printf("Enter Category: ");
         scanf(" %[^\n]", expenses[count].category);
+
 
         printf("Enter Description: ");
         scanf(" %[^\n]", expenses[count].description);
 
+
         printf("Enter Amount: ");
         scanf("%f", &expenses[count].amount);
+
+
 
         count++;
 
         printf("Expense added successfully!\n");
+
     }
 }
 
-// view function()
-void viewExpenses(){
-    
-    if(count==0){
+
+
+// View Expense
+void viewExpenses()
+{
+
+    if(count == 0)
+    {
         printf("No record found\n");
         return;
     }
-    
-printf("\nID\tCATEGORY\tDESCRIPTION\tAMOUNT\n");
-    for(int i=0; i<count; i++){
-        printf("%d\t%[^\n]\t\t%[^\n]\t\t%.2f\n",expenses[i].id,expenses[i].category,expenses[i].description,expenses[i].amount);
-    }
-    
-}
-// update expenses
-void updateExpenses()
-{
-    int id;
-    int found = 0;
 
-    printf("Enter Expense ID: ");
-    scanf("%d", &id);
 
-    for(int i = 0; i < count; i++)1
-    {
-        if(id == expenses[i].id)
-        {
-            found = 1;
+    printf("\nID\tCATEGORY\tDESCRIPTION\tAMOUNT\n");
 
-            printf("Enter New Category: ");
-            scanf("%s", expenses[i].category);
-
-            printf("Enter New Description: ");
-            scanf("%s", expenses[i].description);
-
-            printf("Enter New Amount: ");
-            scanf("%f", &expenses[i].amount);
-
-            printf("Expense Updated Successfully!\n");
-            break;
-        }
-
-    }
-
-    if(found == 0)
-    {
-        printf("Expense ID not found!\n");
-    }
-}
-
-//calculate total expenses 
-float calculateTotalExpenses()
-{
-    float total=0;
-    
-    for(int i=0; i<count; i++){
-        total=total+expenses[i].amount;
-    }
-    printf("Total Expenses: %.2f\n", total);
-    
-    return total;
-}
-
-// remaining ammount
-void showRemainingAmount(){
-    float total= calculateTotalExpenses();
-    printf("\nMonthly Income: %.2f",income);
-    printf("\nTotal Expenses: %.2f",total);
-    float Remaining=income-total;
-    printf("\nReamaining Budget: %.2f\n",Remaining);
-    
-    if(total>income){
-        printf("budet overload\n");
-    }
-}
-
-// searh 
-void searchof(){
-    int id;
-    int found=0;
-    printf("Enter the id:");
-    scanf("%d",&id);
-    
-    for(int i=0; i<count; i++){
-        if(id==expenses[i].id)
-        {
-            found=1;
-            printf("%d\t%s\t%s\t%.2f\t\n",expenses[i].id,expenses[i].category,expenses[i].description,expenses[i].amount);
-            break;
-        }
-    }
-    if(found==0){
-        printf("The Id is not existed plz enter valid id----\n");
-    }
-}
-// delete record 
-void deleteExpense()
-{
-    int id;
-    int found = 0;
-
-    printf("Enter Expense ID to delete: ");
-    scanf("%d", &id);
 
     for(int i = 0; i < count; i++)
     {
-        if(expenses[i].id == id)
+
+        printf("%d\t%s\t\t%s\t\t%.2f\n",
+        expenses[i].id,
+        expenses[i].category,
+        expenses[i].description,
+        expenses[i].amount);
+
+    }
+
+}
+
+
+
+// Update Expense
+void updateExpenses()
+{
+
+    int id;
+    int found = 0;
+
+
+    printf("Enter Expense ID: ");
+    scanf("%d",&id);
+
+
+
+    for(int i = 0; i < count; i++)
+    {
+
+        if(id == expenses[i].id)
         {
+
             found = 1;
 
-            // Shift all records one position left
-            for(int j = i; j < count - 1; j++)
-            {
-                expenses[j] = expenses[j + 1];
-            }
 
-            count--;
+            printf("Enter New Category: ");
+            scanf(" %[^\n]", expenses[i].category);
 
-            printf("Expense Deleted Successfully!\n");
+
+
+            printf("Enter New Description: ");
+            scanf(" %[^\n]", expenses[i].description);
+
+
+
+            printf("Enter New Amount: ");
+            scanf("%f",&expenses[i].amount);
+
+
+
+            printf("Expense Updated Successfully!\n");
+
             break;
+
         }
+
     }
+
+
 
     if(found == 0)
     {
         printf("Expense ID not found!\n");
     }
+
 }
-int main() {
-    // option to give user by the s/w
-    int choice=1;
+
+
+
+
+// Calculate Total Expenses
+
+float calculateTotalExpenses()
+{
+
+    float total = 0;
+
+
+    for(int i = 0; i < count; i++)
+    {
+
+        total += expenses[i].amount;
+
+    }
+
+
+    return total;
+
+}
+
+
+
+// Remaining Amount
+
+void showRemainingAmount()
+{
+
+    float total = calculateTotalExpenses();
+
+
+    printf("\nMonthly Income: %.2f",income);
+
+
+    printf("\nTotal Expenses: %.2f",total);
+
+
+
+    float remaining = income - total;
+
+
+    printf("\nRemaining Budget: %.2f\n",remaining);
+
+
+
+    if(total > income)
+    {
+
+        printf("Budget overloaded\n");
+
+    }
+
+}
+
+
+
+
+// Search Expense
+
+void searchExpense()
+{
+
+    int id;
+    int found = 0;
+
+
+    printf("Enter Expense ID: ");
+    scanf("%d",&id);
+
+
+
+    for(int i = 0; i < count; i++)
+    {
+
+        if(id == expenses[i].id)
+        {
+
+            found = 1;
+
+
+            printf("\nID\tCATEGORY\tDESCRIPTION\tAMOUNT\n");
+
+
+            printf("%d\t%s\t\t%s\t\t%.2f\n",
+            expenses[i].id,
+            expenses[i].category,
+            expenses[i].description,
+            expenses[i].amount);
+
+
+
+            break;
+
+        }
+
+    }
+
+
+
+    if(found == 0)
+    {
+
+        printf("Expense ID not found!\n");
+
+    }
+
+}
+
+
+
+
+
+// Delete Expense
+
+void deleteExpense()
+{
+
+    int id;
+    int found = 0;
+
+
+
+    printf("Enter Expense ID to delete: ");
+    scanf("%d",&id);
+
+
+
+    for(int i = 0; i < count; i++)
+    {
+
+        if(expenses[i].id == id)
+        {
+
+            found = 1;
+
+
+
+            for(int j = i; j < count-1; j++)
+            {
+
+                expenses[j] = expenses[j+1];
+
+            }
+
+
+
+            count--;
+
+
+            printf("Expense Deleted Successfully!\n");
+
+
+            break;
+
+        }
+
+    }
+
+
+
+    if(found == 0)
+    {
+
+        printf("Expense ID not found!\n");
+
+    }
+
+}
+
+
+
+
+
+int main()
+{
+
+    int choice;
+
     char name[50];
     char jobname[50];
-    printf("\n\t\t-----------------Welcome To Expenses Management System-----------------\t\t\n");
+
+
+
+    printf("\n------------ Welcome To Expense Management System ------------\n");
+
+
+
     printf("Enter Your Name: ");
     scanf(" %[^\n]",name);
-    printf("Enter your Job Name: ");
+
+
+
+    printf("Enter Your Job Name: ");
     scanf(" %[^\n]",jobname);
-    printf("Enter the Monthly Income: ");
+
+
+
+    printf("Enter Monthly Income: ");
     scanf("%f",&income);
-    
-    while(1){
-        printf("\n\t\t\t-----------------Daily Expenses-----------------\t\t\t\n");
-        printf("1.Add Expense\n2.View Expense\n3.Update Expenses\n4.Total Expenses\n5.Remaining Ammount\n6.Search Expenses\n7.Delete Expenses\n8.Exit\n");
-        
-        printf("enter the choice:");
+
+
+
+
+    while(1)
+    {
+
+
+        printf("\n------------- Daily Expenses -------------\n");
+
+
+        printf("1. Add Expense\n");
+        printf("2. View Expense\n");
+        printf("3. Update Expense\n");
+        printf("4. Total Expense\n");
+        printf("5. Remaining Amount\n");
+        printf("6. Search Expense\n");
+        printf("7. Delete Expense\n");
+        printf("8. Exit\n");
+
+
+
+        printf("Enter choice: ");
         scanf("%d",&choice);
-        
-        switch(choice){
+
+
+
+        switch(choice)
+        {
+
             case 1:
                 addExpenses();
                 break;
-                
+
+
             case 2:
                 viewExpenses();
                 break;
-            
+
+
             case 3:
                 updateExpenses();
                 break;
-            
+
+
             case 4:
-                calculateTotalExpenses();
+            {
+                float total = calculateTotalExpenses();
+
+                printf("Total Expenses: %.2f\n",total);
+
                 break;
-            
+            }
+
+
             case 5:
                 showRemainingAmount();
                 break;
+
+
+
             case 6:
-                searchof();
+                searchExpense();
                 break;
+
+
+
             case 7:
                 deleteExpense();
                 break;
+
+
+
             case 8:
-                printf("Exit");
-                break;
+                printf("Thank you for using Expense Management System\n");
+                return 0;
+
+
+
             default:
-                printf("invalid conditons ! plz choose right option---");
-                break;
+                printf("Invalid choice!\n");
+
         }
+
+
     }
-  return 0;  
+
+
+    return 0;
+
 }
