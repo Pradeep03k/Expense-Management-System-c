@@ -27,10 +27,10 @@ void addExpenses()
         scanf("%d", &expenses[count].id);
 
         printf("Enter Category: ");
-        scanf("%s", expenses[count].category);
+        scanf(" %[^\n]", expenses[count].category);
 
         printf("Enter Description: ");
-        scanf("%s", expenses[count].description);
+        scanf(" %[^\n]", expenses[count].description);
 
         printf("Enter Amount: ");
         scanf("%f", &expenses[count].amount);
@@ -51,7 +51,7 @@ void viewExpenses(){
     
 printf("\nID\tCATEGORY\tDESCRIPTION\tAMOUNT\n");
     for(int i=0; i<count; i++){
-        printf("%d\t%s\t\t%s\t\t%.2f\n",expenses[i].id,expenses[i].category,expenses[i].description,expenses[i].amount);
+        printf("%d\t%[^\n]\t\t%[^\n]\t\t%.2f\n",expenses[i].id,expenses[i].category,expenses[i].description,expenses[i].amount);
     }
     
 }
@@ -64,7 +64,7 @@ void updateExpenses()
     printf("Enter Expense ID: ");
     scanf("%d", &id);
 
-    for(int i = 0; i < count; i++)
+    for(int i = 0; i < count; i++)1
     {
         if(id == expenses[i].id)
         {
@@ -176,14 +176,14 @@ int main() {
     char jobname[50];
     printf("\n\t\t-----------------Welcome To Expenses Management System-----------------\t\t\n");
     printf("Enter Your Name: ");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     printf("Enter your Job Name: ");
-    scanf("%s",jobname);
+    scanf(" %[^\n]",jobname);
     printf("Enter the Monthly Income: ");
     scanf("%f",&income);
     
     while(1){
-        printf("\t\t\t-----------------Daily Expenses-----------------\t\t\t\n");
+        printf("\n\t\t\t-----------------Daily Expenses-----------------\t\t\t\n");
         printf("1.Add Expense\n2.View Expense\n3.Update Expenses\n4.Total Expenses\n5.Remaining Ammount\n6.Search Expenses\n7.Delete Expenses\n8.Exit\n");
         
         printf("enter the choice:");
